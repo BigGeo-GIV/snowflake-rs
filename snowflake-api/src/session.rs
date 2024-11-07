@@ -476,11 +476,11 @@ impl Session {
             .clone()
             .or(env::var("SNOWFLAKE_WAREHOUSE").ok());
         let database = self
-            .warehouse
+            .database
             .clone()
             .or(env::var("SNOWFLAKE_DATABASE").ok());
-        let schema = self.warehouse.clone().or(env::var("SNOWFLAKE_SCHEMA").ok());
-        let role = self.warehouse.clone().or(env::var("SNOWFLAKE_ROLE").ok());
+        let schema = self.schema.clone().or(env::var("SNOWFLAKE_SCHEMA").ok());
+        let role = self.role.clone().or(env::var("SNOWFLAKE_ROLE").ok());
 
         let body = OAuthLoginRequest {
             data: OAuthRequestData {
