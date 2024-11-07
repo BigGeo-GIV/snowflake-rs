@@ -150,7 +150,7 @@ impl Connection {
         get_params.extend_from_slice(extra_get_params);
 
         let url = format!("{}{}", url_pattern, context.path);
-        let url = Url::parse_with_params(&url, get_params)?;
+        let url = Url::parse_with_params(&url, get_params.clone())?;
 
         let mut headers = HeaderMap::new();
 
@@ -163,6 +163,15 @@ impl Connection {
             auth_val.set_sensitive(true);
             headers.append(header::AUTHORIZATION, auth_val);
         }
+
+        println!(
+            "Making request with parameters:\n\
+             Query Type: {:?}\n\
+             URL: {}\n\
+             Get Params: {:?}\n\
+             Headers: {:?}",
+            query_type, url, &get_params, headers,
+        );
 
         // todo: persist client to use connection polling
         let resp = self
