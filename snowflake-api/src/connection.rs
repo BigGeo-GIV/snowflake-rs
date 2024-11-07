@@ -129,6 +129,7 @@ impl Connection {
         auth: Option<&str>,
         body: impl serde::Serialize,
     ) -> Result<R, ConnectionError> {
+        println!("This is the request, maybe?");
         let context = query_type.query_context();
 
         let request_id = Uuid::new_v4();
