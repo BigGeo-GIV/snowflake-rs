@@ -33,6 +33,7 @@ struct QueryContext {
     accept_mime: &'static str,
 }
 
+#[derive(Debug)]
 pub enum QueryType {
     LoginRequest,
     TokenRequest,

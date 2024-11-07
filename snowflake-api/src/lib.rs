@@ -519,6 +519,10 @@ impl SnowflakeApi {
             sequence_id: parts.sequence_id,
             is_internal: false,
         };
+        println!(
+            "Request params - query_type: {:?}, base_url: {}, auth_header: {:?}, body: {:?}",
+            query_type, self.session.base_url, parts.session_token_auth_header, body
+        );
 
         let resp = self
             .connection
