@@ -183,7 +183,20 @@ impl Connection {
             .send()
             .await?;
 
-        Ok(resp.json::<R>().await?)
+        println!(
+            "Response received:\n\
+             Status: {}\n\
+             Headers: {:#?}\n\
+             Content Length: {}",
+            resp.status(),
+            resp.headers(),
+            resp.content_length().unwrap_or(0)
+        );
+
+        let json_resp = resp.json::<R>().await?;
+        println!("Response body (debug format): {:#?}", &json_resp);
+
+        Ok(json_resp)
     }
 
     pub async fn get_chunk(
