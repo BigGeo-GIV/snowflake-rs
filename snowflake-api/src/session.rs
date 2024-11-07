@@ -276,8 +276,6 @@ impl Session {
     }
 
     /// Authenticate using OAuth token and spcs url
-    // fixme: Get the token
-    // fixme:
     #[allow(clippy::too_many_arguments)]
     pub fn spcs_oauth_auth(
         connection: Arc<Connection>,
@@ -295,6 +293,14 @@ impl Session {
             env::var("SNOWFLAKE_ACCOUNT").map_err(|_| AuthError::MissingSPCSAccountName)?;
         let account_host = env::var("SNOWFLAKE_HOST").map_err(|_| AuthError::MissingSPCSHost)?;
         let base_url = format!("https://{}/", account_host);
+
+        println!("Creating SPCS OAuth Session with parameters:");
+        println!("  Account: {}", account_identifier);
+        println!("  Base URL: {}", base_url);
+        println!("  Warehouse: {:?}", warehouse);
+        println!("  Database: {:?}", database);
+        println!("  Schema: {:?}", schema);
+        println!("  Role: {:?}", role);
 
         Ok(Self {
             connection,
