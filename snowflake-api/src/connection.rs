@@ -193,8 +193,10 @@ impl Connection {
             resp.content_length().unwrap_or(0)
         );
 
-        let json_resp = resp.json::<R>().await?;
-        println!("Response body (debug format): {:#?}", &json_resp);
+        let raw_text = resp.text().await?;
+        println!("Raw response body: {}", raw_text);
+
+        let json_resp = serde_json::from_str::<R>(&raw_text)?;
 
         Ok(json_resp)
     }
