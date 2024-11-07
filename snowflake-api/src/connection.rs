@@ -142,13 +142,17 @@ impl Connection {
         // fixme: update uuid's on the retry
         let request_id = request_id.to_string();
         let request_guid = request_guid.to_string();
+        println!("extra_get_params: {:?}", extra_get_params);
 
         let mut get_params = vec![
             ("clientStartTime", client_start_time.as_str()),
             ("requestId", request_id.as_str()),
             ("request_guid", request_guid.as_str()),
         ];
+
+        println!("get_params before extend: {:?}", get_params);
         get_params.extend_from_slice(extra_get_params);
+        println!("get_params after extend: {:?}", get_params);
 
         let url = format!("{}{}", url_pattern, context.path);
         let url = Url::parse_with_params(&url, get_params.clone())?;
